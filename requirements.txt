@@ -1,0 +1,6 @@
+aiogram
+colorama
+logging
+time
+datetime
+requests

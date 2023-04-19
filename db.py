@@ -45,10 +45,4 @@ class Database:
                 return result
 
     # ADMIN
-    def other(self, choice, user_id):
-        with self.connection:
-            if choice == "1":
-                return self.cursor.execute("UPDATE users SET isOther = 1", (user_id,)).fetchall()
 
-            else:
-                return self.cursor.execute("UPDATE users SET isOther = 0", (user_id,)).fetchall()
