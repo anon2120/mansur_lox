@@ -12,10 +12,13 @@ Example:
 * Admin panel working on YOUR telegram id.
 
 # How to install
-* 1. You're need to install all requirements (requirements.txt) (Guide in bot)
-* 2. And just open 'main.py'
-* 3. Write your TOKEN + ADMIN_ID
-* 4. Start the bot, it's all
+* You're need to install all requirements (requirements.txt) (Guide in bot)
+
+* IMPORTANT: Change Any links for yours files in the Code! I'd writed comments
+
+* Then. Open "python3 main.py"
+* Write your TOKEN + ADMIN_ID
+* Start the bot, it's all
 
 # Future
 About new functions, I working of the Database full functions (send logs, banning unbanning users in bot, and etc.)
