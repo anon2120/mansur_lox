@@ -13,11 +13,6 @@
     <a href="https://github.com/fairet/The-Scam-Bot/pulls">
       <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/fairet/The-Scam-Bot?color=0088ff" />
     </a>
-    <a href="https://securityscorecards.dev/viewer/?uri=github.com/fairet/The-Scam-Bot">
-      <img alt="OpenSSF Scorecard" src="https://api.securityscorecards.dev/projects/github.com/fairet/The-Scam-Bot/badge" />
-    </a>
-    <br />
-    <br />
   </p>
 </p>
 
