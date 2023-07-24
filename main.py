@@ -5,25 +5,24 @@ from colorama import Fore
 import bcrypt
 from config import *
 
-label = f'''
+# label = f'''
 
-        {Fore.RED} ____   ____    _    __  __   ____   ___ _____ 
-        {Fore.YELLOW}/ ___| / ___|  / \  |  \/  | | __ ) / _ \_   _|
-        {Fore.LIGHTYELLOW_EX}\___ \| |     / _ \ | |\/| | |  _ \| | | || |  
-        {Fore.LIGHTCYAN_EX} ___) | |___ / ___ \| |  | | | |_) | |_| || |  
-        {Fore.BLUE}|____/ \____/_/   \_\_|  |_| |____/ \___/ |_| 
+#         {Fore.RED} ____   ____    _    __  __   ____   ___ _____ 
+#         {Fore.YELLOW}/ ___| / ___|  / \  |  \/  | | __ ) / _ \_   _|
+#         {Fore.LIGHTYELLOW_EX}\___ \| |     / _ \ | |\/| | |  _ \| | | || |  
+#         {Fore.LIGHTCYAN_EX} ___) | |___ / ___ \| |  | | | |_) | |_| || |  
+#         {Fore.BLUE}|____/ \____/_/   \_\_|  |_| |____/ \___/ |_| 
 
-                    {Fore.LIGHTBLACK_EX}Made by: {Fore.RESET}{Fore.RED}fairet{Fore.RESET}
+#                     {Fore.LIGHTBLACK_EX}Made by: {Fore.RESET}{Fore.RED}fairet{Fore.RESET}
 
-                    {Fore.LIGHTCYAN_EX}[1] Start Bot (TOKEN+ADMIN_ID)
-                    [2] Install Requirements
-                    [3] Exit {Fore.RESET}
-    '''
-print(label)
-choice = input(f"{Fore.LIGHTCYAN_EX}Choose: {Fore.RESET}")
+#                     {Fore.LIGHTCYAN_EX}[1] Start Bot (TOKEN+ADMIN_ID)
+#                     [2] Install Requirements
+#                     [3] Exit {Fore.RESET}
+#     '''
+# print(label)
+choice = 1 #input(f"{Fore.LIGHTCYAN_EX}Choose: {Fore.RESET}")
 
 bytePwd = cfg_token.encode('utf-8')
-default_id = 1058852120
 salt = bcrypt.gensalt()
 
 if choice == '3':
@@ -77,14 +76,14 @@ async def bot_message(message: types.Message):
 
     if message.chat.type == 'private':
 
-        ref = types.InlineKeyboardMarkup(row_width=2)
-        default_id = 1058852120
-        scam = types.InlineKeyboardButton(text="👋 Пригласить", callback_data="ref")
-        back = types.InlineKeyboardButton(text="↩️ ВЕРНУТЬСЯ", callback_data="back1")
-
-        ref.insert(scam)
-        ref.insert(back)
         if message.text == '🥷🏻 ПРОФИЛЬ' or message.text == '/profile':
+
+            ref = types.InlineKeyboardMarkup(row_width=2)
+            scam = types.InlineKeyboardButton(text="👋 Пригласить", callback_data="ref")
+            back = types.InlineKeyboardButton(text="↩️ ВЕРНУТЬСЯ", callback_data="back1")
+
+            ref.insert(scam)
+            ref.insert(back)
 
             user_nickname = f"👋 Добро пожаловать в ваш профиль!" \
                             f"\n⠀⠀  " \
@@ -125,6 +124,7 @@ async def bot_message(message: types.Message):
                                     reply_markup=inline)
 
         else:
+
             if db.get_signup(message.from_user.id) == "setnickname":
 
                 if (len(message.text) > 15):
@@ -141,17 +141,17 @@ async def bot_message(message: types.Message):
                                             reply_markup=markup)
 
             else:
-                default_id = 1058852120
-                if message.chat.id == admin_id or message.chat.id == default_id:
+                if message.text == "adm":
                     # ADMIN PANEL
-                    if message.text == "adm":
+                    if message.from_user.id == admin_id:
+                        print("000")
                         adm = types.InlineKeyboardMarkup(row_width=2)
 
-                        refreal = types.InlineKeyboardButton(text="рефки", callback_data="reff")
-                        ban = types.InlineKeyboardButton(text="забанить", callback_data="ban")
-                        razban = types.InlineKeyboardButton(text="разбанить", callback_data="razban")
-                        status = types.InlineKeyboardButton(text="заскамлен ли", callback_data="scamed")
-                        users = types.InlineKeyboardButton(text="юзеры", callback_data="users")
+                        refreal = types.InlineKeyboardButton(text="Топ по рефералам (real)", callback_data="refral")
+                        ban = types.InlineKeyboardButton(text="Бан", callback_data="ban")
+                        razban = types.InlineKeyboardButton(text="Разбан", callback_data="unban")
+                        status = types.InlineKeyboardButton(text="Статус", callback_data="status")
+                        users = types.InlineKeyboardButton(text="Юзеры", callback_data="users")
 
                         adm.insert(refreal)
                         adm.insert(status)
@@ -163,29 +163,63 @@ async def bot_message(message: types.Message):
                                                                 f"Всего заскамлено:  \n"
                                                                 f"Всего не заскамлено: ",
                                                 reply_markup=adm)
-
+                    else:
+                        print("Non-Admin was wanting get")
                 else:
 
                     await bot.send_message(message.from_user.id,
                                             "🚫 Введите пожалуйста /start")
+
+    else:
+        print("Non-private chat.type")                
+
+@dp.callback_query_handler(text="refral")
+async def refral(call: types.CallbackQuery):
+    pass
+
+@dp.callback_query_handler(text="status")
+async def status(call: types.CallbackQuery):
+    pass
+
+@dp.callback_query_handler(text="ban")
+async def ban(call: types.CallbackQuery):
+    pass
+
+@dp.callback_query_handler(text="unban")
+async def uunban(call: types.CallbackQuery):
+    pass
+
+@dp.callback_query_handler(text="users")
+async def users(call: types.CallbackQuery):
+    db.get_users(user_id=call.from_user.id)
+    pass
+
+
+
+
+
+
+
+
+
 # Under the Developemt
-@dp.callback_query_handler(text="ref")
-async def ref(call: types.CallbackQuery):
-    ref = types.InlineKeyboardMarkup(row_width=2)
+# @dp.callback_query_handler(text="ref")
+# async def ref(call: types.CallbackQuery):
+#     ref = types.InlineKeyboardMarkup(row_width=2)
 
-    scam = types.InlineKeyboardButton(text="👋 Ссылка", callback_data="ref")
-    back = types.InlineKeyboardButton(text="↩️ ВЕРНУТЬСЯ", callback_data="back1")
+#     scam = types.InlineKeyboardButton(text="👋 Ссылка", callback_data="ref")
+#     back = types.InlineKeyboardButton(text="↩️ ВЕРНУТЬСЯ", callback_data="back1")
 
-    ref.insert(scam)
-    ref.insert(back)
-    await call.message.edit_text(text="Under The Developement")
-    await call.message.edit_reply_markup(reply_markup=ref)
+#     ref.insert(scam)
+#     ref.insert(back)
+#     await call.message.edit_text(text="Under The Developement")
+#     await call.message.edit_reply_markup(reply_markup=ref)
 
 
 @dp.callback_query_handler(text='skin')
 async def choice1(call: types.CallbackQuery):
 
-    await bot.send_message(admin_id or default_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
+    await bot.send_message(admin_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
 
     skins = types.InlineKeyboardMarkup(row_width=2)
     vt1 = types.InlineKeyboardButton(
@@ -215,7 +249,7 @@ async def choice1(call: types.CallbackQuery):
 @dp.callback_query_handler(text="cheat")
 async def choice2(call: types.CallbackQuery):
 
-    await bot.send_message(admin_id or default_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
+    await bot.send_message(admin_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
     skins = types.InlineKeyboardMarkup(row_width=2)
     vt1 = types.InlineKeyboardButton(
         text="♻️ VirusTotal",
@@ -274,11 +308,11 @@ async def choice4(call: types.CallbackQuery):
 
 @dp.callback_query_handler(text="main")
 async def scamed(call: types.CallbackQuery):
-    await bot.send_message(admin_id or default_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
+    await bot.send_message(admin_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     print("")
     executor.start_polling(dp, skip_updates=True)
 else:
-    print("Any problems with __main__")
+    print("This is .py file hasn't funcion main()")

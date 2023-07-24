@@ -1,5 +1,5 @@
-cfg_token = "##########:###################-###############" # Enter your Api Token here (Get from @BotFather)
-admin_id = "##########" # Your Telegram ID for Admin Panel (Get from @getmyid_bot)
+cfg_token = "6228298637:AAGoxLgLAiU845AakUy-Dc9IMsa6xWXWN6I" # Enter your Api Token here (Get from @BotFather)
+admin_id = "1058852120" # Your Telegram ID for Admin Panel (Get from @getmyid_bot)
             
 name = "My Company" # Enter name of the your fake Company
 help0 = "@username" # Enter the @nickname for help (Техническая Поддержка)
