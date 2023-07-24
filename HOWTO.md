@@ -6,12 +6,13 @@ Just follow these options:
 * Download all at requirements from the requirements.txt (pip install -r requirements.txt)
 * Or selecting [2] option, when bot started
 # 
-* Start the main.py (python main.py)
+* Start edit config.py
 * Enter your TOKEN (Get from @BotFather)
-* Enter your CHAT_ID from the ADMIN PANEL (From the @WhatMyIDBot)
-* Enter the fake name of the your "company
-* Enter the links for a files and their virustotals
+* Enter your Telegram ID for the ADMIN PANEL (From the @WhatMyIDBot)
+* Enter the fake name of your "company"
+* Enter a passwords for .zip .rar archives
+* Enter the links for a files and their FAKE virustotals
 ##
-* Launch the Telegram Bot
+* Launch the main.py
 * Done. You're a Wonderful
 
