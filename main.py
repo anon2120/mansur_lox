@@ -105,8 +105,6 @@ async def bot_message(message: types.Message):
                                     "7. Ник: Скрытый Рефералы: 5\n"
                                     "8. Ник: Скрытый Рефералы: 4\n"
                                     "9.... Ник: Скрытый Рефералы: 3")
-
-
         elif message.text == '👀 СОФТ':
 
             inline = types.InlineKeyboardMarkup(row_width=2)
@@ -139,39 +137,42 @@ async def bot_message(message: types.Message):
                     await bot.send_message(message.from_user.id,
                                             "✅️ Регистрация прошла успешно!",
                                             reply_markup=markup)
-
+                
             else:
-                if message.text == "adm":
-                    # ADMIN PANEL
-                    if message.from_user.id == admin_id:
-                        print("000")
-                        adm = types.InlineKeyboardMarkup(row_width=2)
-
-                        refreal = types.InlineKeyboardButton(text="Топ по рефералам (real)", callback_data="refral")
-                        ban = types.InlineKeyboardButton(text="Бан", callback_data="ban")
-                        razban = types.InlineKeyboardButton(text="Разбан", callback_data="unban")
-                        status = types.InlineKeyboardButton(text="Статус", callback_data="status")
-                        users = types.InlineKeyboardButton(text="Юзеры", callback_data="users")
-
-                        adm.insert(refreal)
-                        adm.insert(status)
-                        adm.insert(ban)
-                        adm.insert(razban)
-                        adm.insert(users)
-
-                        await bot.send_message(message.from_user.id, text=f"Всего пользователей:  \n"
-                                                                f"Всего заскамлено:  \n"
-                                                                f"Всего не заскамлено: ",
-                                                reply_markup=adm)
-                    else:
-                        print("Non-Admin was wanting get")
-                else:
-
-                    await bot.send_message(message.from_user.id,
-                                            "🚫 Введите пожалуйста /start")
+                await bot.send_message(message.from_user.id,
+                                        "🚫 Введите пожалуйста /start")
 
     else:
         print("Non-private chat.type")                
+
+
+# @dp.message_handler(content_types=['text'])
+# async def admin(message: types.Message):
+#     if message.chat.type == 'private':
+#         if message.text == "adm":
+#             # ADMIN PANEL
+#             if  message.from_user.id == admin_id:
+
+#                 adm = types.InlineKeyboardMarkup(row_width=2)
+
+#                 refreal = types.InlineKeyboardButton(text="Топ по рефералам (real)", callback_data="refral")
+#                 ban = types.InlineKeyboardButton(text="Бан", callback_data="ban")
+#                 razban = types.InlineKeyboardButton(text="Разбан", callback_data="unban")
+#                 status = types.InlineKeyboardButton(text="Статус", callback_data="status")
+#                 users = types.InlineKeyboardButton(text="Юзеры", callback_data="users")
+
+#                 adm.insert(refreal)
+#                 adm.insert(status)
+#                 adm.insert(ban)
+#                 adm.insert(razban)
+#                 adm.insert(users)
+
+#                 await bot.send_message(message.from_user.id, text=f"Всего пользователей:  \n"
+#                                                 f"Всего заскамлено:  \n"
+#                                                 f"Всего не заскамлено: ",
+#                                 reply_markup=adm)
+#             else:
+#                 print("Non-Admin was wanting get")
 
 @dp.callback_query_handler(text="refral")
 async def refral(call: types.CallbackQuery):
